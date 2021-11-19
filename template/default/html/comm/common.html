@@ -1,0 +1,626 @@
+//QQ跳转
+tencent://message/?uin=3249772281&amp;Menu=yes
+
+
+//淘宝IP接口
+/*print_r(get_area('223.67.235.28'));
+function get_area($ip = ''){
+    if($ip == ''){
+        $ip = GetIp();
+    }
+    $url = "http://ip.taobao.com/getIpInfo.php?ip={$ip}";//淘宝
+    //$res&nbsp;=&nbsp;@file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&amp;ip='&nbsp;.&nbsp;$ip);//新浪
+    $ret = https_request($url);
+    $arr = json_decode($ret,true);
+    return $arr;
+}*/
+
+//上传文件
+<!--  <script>
+        var el=document.getElementById('file');
+        if(el){
+            el.addEventListener('change', function (event) {
+            var $file = event.currentTarget;
+            var formData = new FormData();
+            var file = $file.files;
+            formData = new FormData();
+            formData.append('upload', file[0]);
+            $.ajax({
+                url: '{pboot:siteindex}/member/upload',
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+            })
+            .done(data => {
+                $('#jubao_file').val(data.data);
+            })
+            .fail(data => {
+                console.log(data);
+            });
+        }); 
+        }
+   
+   
+   
+</script> -->
+
+//新浪股票
+<!--  <script type="text/javascript" src="http://hq.sinajs.cn/list=sz{label:gupiao}" charset="gb2312"></script>
+    <script>
+
+        var elements=hq_str_sz{label:gupiao}.split(",");
+        var currentPrice=elements[3];
+        $('#currentprice').html(currentPrice);
+
+         var zuoriPrice=elements[2];
+        $('#zuori').html(zuoriPrice);
+        var highPrice=elements[4];
+        $('#high').html(highPrice);
+        var diPrice=elements[5];
+        $('#di').html(diPrice);
+        var number=elements[8]/1000000;
+        number=number.toFixed(2);
+        $('#number').html(number);
+        var totalPrice=elements[9]/100000000;
+        $('#totalprice').html(totalPrice);
+        var date=elements[30]+ " " +elements[31];
+        $('#datetime').html(date);
+
+        var chazhi=currentPrice-zuoriPrice;
+        chazhi=chazhi.toFixed(2);
+      //  alert(chazhi);
+        if(chazhi<0){
+            $('.stock-main').addClass('down');
+            //  $('#chazhi').html(chazhi);
+        }else{
+            // $('#chazhi').html(chazhi);
+        }
+    </script> -->
+
+
+//jQuery正则验证
+if (content.match(/^[ ]*$/)) {
+    layer.msg('请正确填写问题描述');return false;//正则匹配内容键盘空格
+}
+//表单提交
+ <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
+    <script>
+                        $('.btn').click(function(){
+                            
+                            
+                            var name = $('input[name="name"]').val();
+                            var phone = $('input[name="phone"]').val();
+                            var email = $('input[name="email"]').val();
+                            var company = $('input[name="company"]').val();
+                            var content = $('textarea[name="content"]').val();
+                            var checkcode = $('input[name="checkcode"]').val();
+                            var is_default=$('#save-default').is(':checked');
+                           
+                            if(!name){layer.msg('请填写姓名');return false;}
+                          //  if(!phone){layer.msg('请填写联系电话');return false;}
+                            if(!email){layer.msg('请填写邮箱');return false;}
+                        //     if(!company){layer.msg('请填写主题');return false;}
+                            var regemail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                            if(!regemail.test(email)){
+                                layer.msg('邮箱格式不正确');return false;
+                            }
+
+                            var regphone=/d{3}-d{8}|d{4}-d{7}/; //号码正则
+                            var regmobile=/^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/;//手机正则
+                            if(!regmobile.test(phone)){
+                                layer.msg('号码格式不正确');return false;
+                            }
+
+                            if(!checkcode){layer.msg('请填写验证码');return false;}
+    
+                            $.ajax({
+                            type: "POST",
+                            url: "{pboot:msgaction}",
+                            dataType: "json",
+                            data:{name:name,phone:phone,email:email,company:company,content:content,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}',checkcode:checkcode},
+                            success: function(data) { 
+                            if(data.code){
+                                layer.alert('提交成功！我们将尽快与您取得联系！请留意您的手机', {icon:6,time:1200}); 
+                                setTimeout(function(){window.location.reload();},1200);
+                            }
+                            if(data.code==0){
+                                layer.alert(data.data, {icon:5,time:1200}); 
+                                // setTimeout(function(){window.location.reload();},1200);
+                            }
+    
+                            } 
+                            
+                            });
+    
+                        });
+        </script>
+
+//二维码
+
+ <input type="text" name="checkcode" id="" placeholder="验证码"><span><img src="{pboot:checkcode}" alt=""onclick="this.src='{pboot:checkcode}?'+Math.round(Math.random()*10);"/></span>
+
+
+  <script src="js/jquery.sPage.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
+ 
+    <script>
+    var scode1=$('#scode1 a.active').data('id');
+    jiazai1();
+    $('#scode1 a').click(function(){
+        scode1=$(this).data('id');
+        jiazai1();
+    })
+    
+     function jiazai1(page) {
+            var p = page || 1;
+            $.ajax({
+                 type: "POST",
+                 url: "/api.php/Cms/search/num/"+4+"/page/"+p,
+                 data:{'field':'title','scode':scode1},
+                 dataType: "json",
+                 success: function(data) {         
+                     $("#page1").sPage({
+                        page:p,//当前页码，必填
+                        total:data.rowtotal,//数据总条数，必填
+                        pageSize:4,//每页显示多少条数据，默认10条
+                        totalTxt:"共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+                        showTotal:false,//是否显示总条数，默认关闭：false
+                        showSkip:false,//是否显示跳页，默认关闭：false
+                        showPN:false,//是否显示上下翻页，默认开启：true
+                        prevPage:false,//上翻页文字描述，默认“上一页”
+                        nextPage:false,//下翻页文字描述，默认“下一页”
+                         backFun: function(page) { //点击分页按钮回调函数，返回当前页码                    
+                        //  console.log(cpxh);
+                             jiazai1(page);
+                         }
+                     });
+                  //   if (data.code ==0) {layer.msg('未搜索到文档');}
+                     $("#jiazai1").html('');
+                     $(data.data).each(function(index,data){
+                                    $("#jiazai1").append(`
+                                        <a href="${data.contentlink}">
+                                        <picture class="centered"><img src="${data.ico}" alt="" class="full-maxAuto"></picture>
+                                        <div class="info">
+                                            <div class="tit">${data.title}</div>
+                                            <p>${data.desc}</p>
+                                            <span class="centered btn">详情介绍</span>
+                                        </div>
+                                    </a>
+                               
+                                    `)
+                                    
+                                });
+                 }
+            });
+        } 
+
+</script>
+
+
+ //ajax 加载
+   <script>
+        var p=0;
+     function more(){
+            p=p+1;
+            var scode={sort:scode}
+           // alert(p);
+            var start=6;
+             $.ajax({
+
+                type: "POST",
+
+                url: "{pboot:siteindex}/api.php/list/"+scode+"/num/6/p/"+p+"/start/"+start,
+
+                data: {
+
+                         
+
+                         'appid':'{pboot:appid}','timestamp':'{pboot:timestamp}','signature':'{pboot:signature}'
+
+                        },
+
+                dataType: "json",
+
+                success: function (data) {
+
+                 
+                       if(data.code==1){
+                        //  $(".job-list").empty();
+                            var htm = "";
+             
+                           $.each(data.data,function (index,obj) {
+                                
+                               
+                            htm+=`<a href="${obj.contentlink}" class="startAnimate">
+                                    <div class="news-pic">
+                                        <img src="${obj.ico}" alt="${obj.ico_alt}" class="obj-cover">
+                                    </div>
+                                    <div class="news-txt">
+                                        <h3>${obj.title}</h3>
+                                        <p>${obj.desc}</p>
+                                        <div class="news-bott"><i></i><span>${obj.date}</span></div>
+                                    </div>
+                                </a>`;
+                               
+                            })
+                           
+                           $(".news-list").append(htm);
+
+                       }
+                         
+                       
+                        if(data.code==0){
+                            $('#more').addClass('none');
+                        }
+
+
+
+
+                        
+
+                }
+
+            }); 
+     }   
+        
+
+
+    </script>
+
+    /加载更多
+
+     <script>
+        var p=1
+        var num=8;
+
+        for(i=0;i<=7;i++){
+        console.log(i);
+            $('.anli li').eq(i).show();
+        }
+
+        function more(){
+                p=p+1;
+            var count=p*num-1;
+
+                for(i=0;i<=count;i++){
+                    $('.anli li').eq(i).show();
+                }
+            }
+    </script>
+
+
+
+    //分页
+   <div class="pagination">
+                    <span><a href="{page:pre}" class="click-page"><span class="lft-ico">&lt;</span><div class="page-j">上一页</div></a></span>
+                    {page:numbar}
+                    <span><a href="{page:next}" class="click-page"><div class="page-j">下一页</div><span class="rgt-ico">&gt;</span></a></span>
+                    <div class="page-rgt">
+                        <div class="page-num"><span>{page:current}</span>/{page:count}</div>
+                        <div class="page-go">
+                            <span>到第</span>
+                            <input type="text" id="page" data="" name="page" value="">
+                            <span>页</span>
+                            <a id="pagin" data="{page:index}" href="javascript:;" class="go-btn">确定</a>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $('#pagin').click(function(){
+                            var url = $(this).attr('data');
+                            var page = $('input[name=page]').val();
+                            $(location).attr('href',url+'?page='+page);
+                        })
+                </script>
+
+
+//搜索
+
+<form id="top_form" action="{pboot:scaction}" method="get">
+    <div class="Header-search-submit"></div>
+    <input type="submit" id="search-submit" style="display: none;">
+    <input type="text" name="keyword" id="top_key" placeholder="搜索...">
+    <div class="Header-search-close"></div>
+    <script>
+        $(".Header-search-submit").click(function () {
+            $("#search-submit").trigger("click");
+        })
+    </script>
+</form> 
+
+//高级内容
+<script type="text/javascript">
+    $(function () {
+        $('.down-picture,.down-info').click(function (){
+          var data=$(this).attr('data-id');
+          data = JSON.parse(data);
+             for(i in data){
+        $(".inner-verus").append(
+      `<a href="${data[i].video}" data-id="${i}">
+                                       <span>${data[i].title}</span><i></i>
+                                   </a>
+      `
+        );
+      }
+         // alert(data);
+           
+            if($(this).siblings('.verus-pop').length>0){
+                $('body').addClass('of-hidden')
+                $(this).siblings('.verus-pop').fadeIn().css('display','flex')
+            }
+        })
+
+        $('.verus-close').click(function (){
+            $('.verus-pop').hide()
+            $('body').removeClass('of-hidden')
+        })
+    });
+</script>
+
+
+//注册
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.js"></script>
+    <script type="text/javascript">
+        $(function () {
+             function smsemail(useremail){
+                $.ajax({type: 'POST',url: '{pboot:siteindex}/member/sendEmail',dataType: 'json',data: {useremail:useremail,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}'},
+                    success: function (response, status) {
+                        if(response.code==1){
+                            layer.msg('发送成功'); 
+                        }else{layer.msg(response.data, {icon: 5});}
+                    }
+                }) 
+            }
+            $("#getcode").on('click',function(){
+                var useremail = $('input[name="useremail"]').val();
+                var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                var count = 60;
+                var InterValObj1;
+                if(!reg.test(useremail)){
+                    alert('邮箱格式不正确');return false;
+                }
+                smsemail(useremail);
+                $(this).attr("disabled", "true");
+                $(this).text( + count + "秒再获取");
+                $(this).addClass('ing');
+                InterValObj1 = window.setInterval(SetRemainTime, 1000);
+
+                function SetRemainTime() {
+                    if (count == 1) {
+                        window.clearInterval(InterValObj1);//停止计时器
+                        $("#getcode").removeAttr("disabled");//启用按钮
+                        $("#getcode").removeClass("ing");//启用按钮
+                        $("#getcode").text("重新发送");
+                    }
+                    else {
+                        count--;
+                        $("#getcode").text( + count + "秒再获取");
+                    }
+                }
+            })
+            $('.btn_register').click(function(){
+               
+                var useremail = $('input[name="useremail"]').val();
+                var emailcode = $('input[name="emailcode"]').val();
+                var password = $('input[name="password"]').val();
+                var repassword = $('input[name="repassword"]').val();
+                var name = $('input[name="name"]').val();
+                var phone = $('input[name="phone"]').val();
+                var zhiwu = $('input[name="zhiwu"]').val();
+                var company = $('input[name="company"]').val();
+                var companyphone = $('input[name="companyphone"]').val();
+                
+               
+                // if(!username){layer.msg('please enter Given Name ');return false;}
+                var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+             //   if(!privacy.is(":checked")){layer.msg('请同意...');return false;}
+                if(!useremail){layer.msg('请输入邮箱');return false;}
+                if(!reg.test(useremail)){layer.msg('邮箱格式不正确');return false;}
+               
+               if(!emailcode){layer.msg('请输入验证码');return false;}
+               if(!password){layer.msg('请输入密码');return false;}
+               if(!repassword){layer.msg('请输入确认密码');return false;}
+
+               
+                
+                $.ajax({type: 'POST',url: '{pboot:register}',dataType:'json',data:{emailcode:emailcode,useremail:useremail,password:password,repassword:repassword,name:name,phone:phone,zhiwu:zhiwu,company:company,companyphone:companyphone},
+                    success: function (data, status) {
+                        if(data.code==1){
+                            layer.msg(data.data); 
+                            setTimeout(function(){$(location).attr('href',data.url)},1200);
+                        }else{layer.msg(data.data);}
+                    }
+                }) 
+
+            });
+
+             $('#useremail').blur(function(){
+                var useremail=$('#useremail').val();
+               $.ajax({type: 'POST',url: '/member/isRegister',dataType:'json',data:{useremail:useremail},
+                    success: function (response, status) {
+                        layer.msg(response.data, {icon: 5});
+                    }
+                }) 
+            })
+        });
+        wow = new WOW({boxClass: 'wow',animateClass: 'animated',offset: 0,mobile: false,live: true});
+        wow.init();
+    </script>
+
+
+
+    //登录
+      <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
+    <script>
+                        $('.btn_login').click(function(){
+                            
+                            
+                           
+                            var useremail = $('input[name="useremail"]').val();
+                            var password = $('input[name="password"]').val();
+                            
+                            var isremember = $('#save').prop('checked');
+    
+                           
+                            
+                            if(!useremail){layer.msg('请输入邮箱');return false;}
+                        
+                            var regemail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                            if(!regemail.test(useremail)){
+                                layer.msg('邮箱格式不正确');return false;
+                            }
+
+                             if(!password){layer.msg('请输入密码');return false;}
+                           
+                            
+                            if(!isremember){
+                                isremember=0;
+                            }else{
+                                isremember=1;
+                            }
+                           
+                           // alert(isremember);
+                            $.ajax({
+                            type: "POST",
+                            url: "/member/login",
+                            dataType: "json",
+                            data:{useremail:useremail,password:password,isremember:isremember,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}'},
+                            success: function(data) { 
+                            if(data.code){
+                                layer.msg(data.data); 
+                                setTimeout(function(){$(location).attr('href',data.url)},1200);
+                            }
+                            if(data.code==0){
+                                layer.msg(data.data); 
+                                 setTimeout(function(){window.location.reload();},1200);
+                            }
+    
+                            } 
+                            
+                            });
+    
+                        });
+        </script>
+
+//忘记密码
+ <script type="text/javascript">
+        $(function () {
+            function smsemail(useremail){
+                $.ajax({type: 'POST',url: '{pboot:siteindex}/member/sendEmail',dataType: 'json',data: {useremail:useremail,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}'},
+                    success: function (response, status) {
+                        if(response.code==1){
+                            layer.alert('发送成功'); 
+                        }else{layer.msg(response.data, {icon: 5});}
+                    }
+                }) 
+            }
+            $("#getcode").on('click',function(){
+                var useremail = $('input[name="useremail"]').val();
+                var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                var count = 60;
+                var InterValObj1;
+                if(!reg.test(useremail)){
+                    alert('邮箱格式不正确');return false;
+                }
+                smsemail(useremail);
+                $(this).attr("disabled", "true");
+                $(this).text( + count + "秒再获取");
+                $(this).addClass('ing');
+                InterValObj1 = window.setInterval(SetRemainTime, 1000);
+
+                function SetRemainTime() {
+                    if (count == 1) {
+                        window.clearInterval(InterValObj1);//停止计时器
+                        $("#getcode").removeAttr("disabled");//启用按钮
+                        $("#getcode").removeClass("ing");//启用按钮
+                        $("#getcode").text("重新发送");
+                    }
+                    else {
+                        count--;
+                        $("#getcode").text( + count + "秒再获取");
+                    }
+                }
+            })
+             $('.btn_forgetpwd').click(function(){
+                            
+                            
+                           
+                var useremail = $('input[name="useremail"]').val();
+                var emailcode = $('input[name="emailcode"]').val();
+                
+               
+
+               
+                
+                if(!useremail){layer.msg('请输入邮箱');return false;}
+            
+                var regemail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                if(!regemail.test(useremail)){
+                    layer.msg('邮箱格式不正确');return false;
+                }
+
+                if(!emailcode){layer.msg('emailcode');return false;}
+               
+                
+                
+               
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/member/forgetpwd",
+                    dataType: "json",
+                    data:{useremail:useremail,emailcode:emailcode,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}'},
+                    success: function(data) { 
+                        if(data.code){
+                            layer.alert(data.data); 
+                            setTimeout(function(){$(location).attr('href',data.url)},1200);
+                        }
+                        if(data.code==0){
+                            layer.alert(data.data, {icon:5,time:1200}); 
+                             setTimeout(function(){window.location.reload();},1200);
+                        }
+
+                    } 
+                
+                });
+
+            });
+       
+</script>
+
+//重设密码
+<script type="text/javascript">
+        
+ $('.btn_resetpwd').click(function(){
+                     
+                     
+                    
+    var password = $('input[name="password"]').val();
+    var repassword = $('input[name="repassword"]').val();
+     
+    if(!password){layer.msg('请输入密码');return false;}
+    if(!repassword){layer.msg('请输入确认密码');return false;}
+     
+    $.ajax({
+         type: "POST",
+         url: "/member/resetpwd",
+         dataType: "json",
+         data:{password:password,repassword:repassword,appid:'{pboot:appid}',timestamp:'{pboot:timestamp}',signature:'{pboot:signature}'},
+         success: function(data) { 
+             if(data.code){
+                 layer.msg(data.data); 
+                 setTimeout(function(){$(location).attr('href',data.url)},1200);
+             }
+             if(data.code==0){
+                 layer.msg(data.data); 
+                setTimeout(function(){window.location.reload();},1200);
+             }
+
+        } 
+ 
+    });
+
+})
+</script>

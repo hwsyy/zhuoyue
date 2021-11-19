@@ -1,0 +1,67 @@
+{include file='common/head.html'}
+
+<div class="layui-body">
+    <div class="layui-tab layui-tab-brief" lay-filter="tab">
+      <ul class="layui-tab-title">
+        <li class="layui-this">头部信息</li>
+      </ul>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form action="{url./admin/Site/mod}" method="post" class="layui-form">
+                <input type="hidden" name="formcheck" value="{$formcheck}" > 
+                {foreach $site_config(key,value)}
+                 {if($value->leixing=='图片')}
+                 <div class="layui-form-item">
+                    {php} $field=$value->column {/php}
+                     <label class="layui-form-label">[value->description]</label>
+                     <div class="layui-input-inline">
+                        <input type="text" name="[value->column]" id="[value->column]" value="{$sites->$field}" placeholder="请上传[value->description]"  class="layui-input">
+                     </div>
+                     <button type="button" class="layui-btn {if($value->column=='favicon')}file{else}upload{/if}" data-des="[value->column]">
+                         <i class="layui-icon">&#xe67c;</i>上传图片
+                     </button>
+                     {php}
+
+                        $file = get_http_url().@[$sites->$field];
+
+                        
+                       
+                        $size = getimagesize($file);
+                        if(!$size){
+                            echo "";
+                            
+                        }else{
+                            echo "<span class='layui-word-aux'>尺寸大小：".$size[0]."x".$size[1]."</span>";
+                        }
+                        
+                    {/php}
+                     <!-- <i class="layui-icon layui-icon-about" style="font-size: 30px;vertical-align: middle;cursor:pointer;"></i> -->
+                    <!--  <span class="layui-word-aux">尺寸大小：120x120</span> -->
+                     <div id="[value->column]_box" class="pic"><dl><dt>{if(@[$sites->$field])}<img src="{SITE_DIR}{$sites->$field}" data-url="{$sites->$field}"></dt><dd>删除</dd></dl>{/if}</div>
+                </div>
+                 {else}
+
+                <div class="layui-form-item">
+                     <label class="layui-form-label">[value->description]</label>
+                     <div class="layui-input-block">
+                        {php} $field=$value->column {/php}
+                        <input type="text" name="[value->column]" value="{$sites->$field}" placeholder="请输入[value->description]"  class="layui-input">
+                     </div>
+                </div>
+                {/if}
+                {/foreach}
+                
+                <div class="layui-form-item">
+                     <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit>立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                     </div>
+                </div>
+                 
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{include file='common/foot.html'}

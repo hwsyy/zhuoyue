@@ -1,0 +1,8 @@
+{
+    "require": {
+        "overtrue/pinyin": "^4.0",
+        "qcloudsms/qcloudsms_php": "0.1.*"
+    }
+
+    
+}

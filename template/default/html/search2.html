@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    {include file="comm/style.html"}
+
+    <link rel="stylesheet" type="text/css" href="css/pages.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    {include file="comm/nav.html"}
+    <!-- Container -->
+    <div class="Container-wrapper">
+        <div class="search">
+            <div class="contain clearFix">
+                <div class="search-info">“<span>{pboot:keyword}</span>”搜索结果</div>
+                <div class="search-list">
+                    {pboot:search scode=4 num=6 page=1}
+                    <a href="[search:link]" class="search-link">
+                        <h2 class="highlightRow">[search:title]</h2>
+                        <p class="highlightRow">[search:desc]</p>
+                    </a>
+                    {/pboot:search}
+                    
+                </div>
+                {include file="comm/page.html"}
+            </div>
+        </div>
+    </div>
+    <!-- 置顶 -->
+    <div class="backTop"></div>
+    <!-- Footer -->
+    {include file="comm/foot.html"}
+
+    <script type="text/javascript">
+        $(function () {
+            var rowNode = $('.highlightRow'), searchContent = $(".search-info span").html();
+            rowNode.each(function() {var word = $(this).html();word = word.replace(searchContent, '<span>' + searchContent + '</span>');$(this).html(word);});
+        });
+        wow = new WOW({boxClass: 'wow',animateClass: 'animated',offset: 0,mobile: false,live: true});
+        wow.init();
+    </script>
+</body>
+
+</html>
